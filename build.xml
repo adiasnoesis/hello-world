@@ -87,7 +87,7 @@
   	    </classpath>    
   	    <batchtest>
   	       <fileset dir="junit">
-  	            <include name="**/*Test*" />
+  	            <include name="**/*Junit*" />
   	       </fileset>
   	    </batchtest>
   	    <formatter type="brief" usefile="false"/>
