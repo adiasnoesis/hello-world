@@ -5,19 +5,11 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="hello-world">
     <property environment="env"/>
-    <property name="junit.output.dir" value="src"/>
+    <property name="ECLIPSE_HOME" value="C:/Program Files (x86)/eclipse/eclipse"/>
+    <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
-    <property name="findbugs.home" value="C:\Program Files\findbugs-2.0.3\findbugs-2.0.3" />
-    <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
-		<classpath>
-		        <pathelement location="${findbugs.home}/lib/findbugs-ant.jar"/>
-				<pathelement location="${findbugs.home}/lib/findbugs.jar"/>
-		    </classpath>
-	</taskdef>
-              	
-              	
     <path id="JUnit 4.libraryclasspath">
         <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
@@ -30,7 +22,6 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
-                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -53,7 +44,6 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="MainJunit" todir="${junit.output.dir}"/>
             <classpath refid="hello-world.classpath"/>
         </junit>
     </target>
@@ -65,14 +55,4 @@
             <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
     </target>
-	<target name="findbugs">
-	    <findbugs home="${findbugs.home}"
-	              output="xml:withMessages"
-	              outputFile="findbugs.xml"
-	    	>
-	      <!--<auxClasspath path="${basedir}/lib/Regex.jar" />-->
-	      <sourcePath path="${basedir}/src/java" />
-	      <class location="${findbugs.home}/lib/bcel.jar" />
-	    </findbugs>
-	  </target>
 </project>
