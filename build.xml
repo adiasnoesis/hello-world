@@ -10,6 +10,14 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
+    <property name="findbugs.home" value="C:\Program Files\findbugs-2.0.3\findbugs-2.0.3" />
+  	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+		<classpath>
+		        <pathelement location="${findbugs.home}/lib/findbugs-ant.jar"/>
+				<pathelement location="${findbugs.home}/lib/findbugs.jar"/>
+		    </classpath>
+	</taskdef>
+              	
     <path id="JUnit 4.libraryclasspath">
         <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.11.0.v201303080030/junit.jar"/>
         <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
@@ -55,4 +63,14 @@
             <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
     </target>
+   	<target name="findbugs">
+  		    <findbugs home="${findbugs.home}"
+  		              output="xml:withMessages"
+  		              outputFile="findbugs.xml"
+  		    	>
+  		      <!--<auxClasspath path="${basedir}/lib/Regex.jar" />-->
+  		      <sourcePath path="${basedir}/src/java" />
+  		      <class location="${findbugs.home}/lib/bcel.jar" />
+  		    </findbugs>
+  		  </target>
 </project>
